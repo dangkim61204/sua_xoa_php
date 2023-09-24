@@ -89,6 +89,6 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
             </select>
         </div>
         <?php endforeach; ?>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-primary">Update  </button>
     </form>
 </div>
