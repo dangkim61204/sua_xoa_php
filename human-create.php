@@ -2,7 +2,7 @@
 include 'connect.php';
 
 //lấy tất cả category
-$cats = $conn->query("SELECT * FROM province Order By Id DESC");
+$cats = $conn->query("SELECT * FROM province Order By id DESC");
 
 //connect database lỗi
 if ($conn->connect_error) {
@@ -76,9 +76,9 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
         <div class="form-group">
             <label for="">Gender</label>
             <label for="">Nam</label>
-            <input type="radio"  name="gender" value="nam">
-            <label for="">Nu</label>
-            <input type="radio" name="gender" value="nu" >
+            <input type="radio" id="nam" name="gender" value="0">
+            <label for="">Nữ</label>
+            <input type="radio" id="nữ" name="gender" value="1" >
         </div>
         <div class="form-group">
             <label for="">Description</label>

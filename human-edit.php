@@ -1,6 +1,6 @@
 <?php include 'connect.php';
 $id = $_GET['id'];
-$cast = mysqli_query($conn, "SELECT * FROM human");
+$cast = mysqli_query($conn, "SELECT * FROM human where id = $id");
 $provinces = mysqli_query($conn, "SELECT * FROM province");
 $edit_sql = "SELECT * FROM province where id = $id";
 
@@ -26,10 +26,14 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     $birthday = $_REQUEST['birthday'];
     $description = $_REQUEST['description']; 
     $province_id = $_REQUEST['province_id'];
-   
-    $sql = "UPDATE human SET name = '$name', email = '$email', phone = '$phone', gender = '$gender', birthday = '$birthday', description = '$description', avata = '$avata',province_id = '$province_id'  where id = $id";
+   $query = "UPDATE human SET name = '$name', email = '$email', phone = '$phone', gender = '$gender', birthday = '$birthday', description = '$description', province_id = '$province_id' ";
+
+   if( $image_name) {
+    $query .= ", avata = '$image_name' ";
+   }
+    $sql =  $query . " where id = $id ";
     if($conn->query($sql) === true) {
-        header('loacation: human.php');
+        header('location: human.php');
         exit();
     }else {
         echo "error: " .$sql . "<br>" . $conn->error;
@@ -51,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
         </div>
         <div class="form-group">
             <label for="">Avata</label>
-            <input type="file" class="form-control" name="avata" value="<?php echo $cate['avata']; ?>" >
+            <input type="file" class="form-control" name="avata" >
             <img width="80" src="uploads/<?php echo $cate['avata']; ?>" alt="">
         </div>
         <div class="form-group">
@@ -69,9 +73,9 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
         <div class="form-group">
             <label for="">Gender</label>
             <label for="">Nam</label>
-            <input type="radio"  name="gender" value="nam" <?php echo $cate['gender'] == '0' ? 'checked' : ''; ?> >
-            <label for="">Nu</label>
-            <input type="radio" name="gender" value="nu" <?php echo $cate['gender'] == '1' ? 'checked' : '';?> >
+            <input type="radio" id="nam"  name="gender" value="0" <?php echo $cate['gender'] == '0' ? 'checked' : ''; ?> >
+            <label for="">Nữ</label>
+            <input type="radio" id="nữ" name="gender" value="1" <?php echo $cate['gender'] == '1' ? 'checked' : '';?> >
         </div>
         <div class="form-group">
             <label for="">Description</label>
@@ -89,6 +93,6 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
             </select>
         </div>
         <?php endforeach; ?>
-        <button type="submit" class="btn btn-primary">Update  </button>
+        <button type="submit" class="btn btn-primary">Update</button>
     </form>
 </div>
